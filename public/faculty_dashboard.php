@@ -21,6 +21,9 @@ $faculty_name = $_SESSION['faculty_name'];
 
 <div class="card">
     <h2>Faculty Dashboard</h2>
+    <a href="logout.php" style="float:right;">
+    <button>Logout</button>
+</a>
     <p><strong>Welcome, <?php echo htmlspecialchars($faculty_name); ?></strong></p>
 
     <!-- ================= CREATE SLOT ================= -->
