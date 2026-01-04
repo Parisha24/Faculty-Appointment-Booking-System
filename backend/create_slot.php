@@ -1,17 +1,21 @@
 <?php
 include "db_connect.php";
+session_start();
 
-$faculty_id = $_POST['faculty_id'];
-$slot_date  = $_POST['slot_date'];
-$start_time = $_POST['start_time'];
+if (!isset($_SESSION['faculty_id'])) {
+    header("Location: ../public/faculty_login.php");
+    exit;
+}
 
-// 1-hour slot
-$end_time = date("H:i:s", strtotime($start_time . " +1 hour"));
+$faculty_id = $_SESSION['faculty_id'];
+$date       = $_POST['slot_date'];
+$start      = $_POST['start_time'];
+$end        = $_POST['end_time'];
 
-$query = "INSERT INTO slots (faculty_id, slot_date, start_time, end_time)
-          VALUES ('$faculty_id', '$slot_date', '$start_time', '$end_time')";
+mysqli_query($conn,
+"INSERT INTO slots (faculty_id, slot_date, start_time, end_time)
+ VALUES ('$faculty_id','$date','$start','$end')"
+);
 
-mysqli_query($conn, $query);
-
-echo "Slot created successfully";
+echo "<script>alert('Slot created successfully');history.back();</script>";
 ?>
