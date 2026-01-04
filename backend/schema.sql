@@ -1,33 +1,34 @@
--- Create Database
 CREATE DATABASE IF NOT EXISTS faculty_appointments;
 USE faculty_appointments;
 
--- Users table
+-- USERS TABLE (Faculty + Students)
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    role ENUM('student','faculty','admin') NOT NULL
+    student_id VARCHAR(20),          -- Enrollment ID (only for students)
+    username VARCHAR(50),            -- For faculty login
+    email VARCHAR(100),
+    password VARCHAR(255) NOT NULL,
+    department VARCHAR(50),
+    role ENUM('faculty','student') NOT NULL
 );
 
--- Slots table (created by admin)
+-- FACULTY SLOTS
 CREATE TABLE slots (
     slot_id INT AUTO_INCREMENT PRIMARY KEY,
     faculty_id INT NOT NULL,
     slot_date DATE NOT NULL,
     start_time TIME NOT NULL,
     end_time TIME NOT NULL,
-    is_available BOOLEAN DEFAULT TRUE,
-    FOREIGN KEY (faculty_id) REFERENCES users(user_id)
+    is_available BOOLEAN DEFAULT 1
 );
 
--- Appointments table (booked by students)
+-- APPOINTMENTS
 CREATE TABLE appointments (
     appointment_id INT AUTO_INCREMENT PRIMARY KEY,
     slot_id INT NOT NULL,
     student_id INT NOT NULL,
-    status ENUM('pending','approved','rejected') DEFAULT 'pending',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (slot_id) REFERENCES slots(slot_id),
-    FOREIGN KEY (student_id) REFERENCES users(user_id)
+    description TEXT NOT NULL,          -- Student reason
+    status ENUM('Pending','Approved','Rejected') DEFAULT 'Pending',
+    faculty_remark TEXT
 );
