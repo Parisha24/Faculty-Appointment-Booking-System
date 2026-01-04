@@ -31,5 +31,3 @@ A web-based system that allows students to book appointments with faculty member
 - **Server:** Apache (XAMPP / WAMP)
 
 ---
-
-## Project Structure
