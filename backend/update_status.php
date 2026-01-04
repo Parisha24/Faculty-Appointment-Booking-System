@@ -1,24 +1,18 @@
 <?php
 include "db_connect.php";
 
-$appointment_id = $_POST['appointment_id'];
-$status = $_POST['status']; // approved or rejected
+$id=$_POST['appointment_id'];
+$st=$_POST['status'];
 
-// Update appointment status
-$query = "UPDATE appointments SET status = '$status'
-          WHERE appointment_id = '$appointment_id'";
-mysqli_query($conn, $query);
+mysqli_query($conn,
+"UPDATE appointments SET status='$st' WHERE appointment_id='$id'");
 
-// If rejected, make slot available again
-if ($status == 'rejected') {
-    $slot_query = "UPDATE slots 
-                   SET is_available = TRUE 
-                   WHERE slot_id = (
-                       SELECT slot_id FROM appointments 
-                       WHERE appointment_id = '$appointment_id'
-                   )";
-    mysqli_query($conn, $slot_query);
+if($st=='rejected'){
+$r=mysqli_fetch_assoc(mysqli_query($conn,
+"SELECT slot_id FROM appointments WHERE appointment_id='$id'"));
+mysqli_query($conn,
+"UPDATE slots SET is_available=1 WHERE slot_id='{$r['slot_id']}'");
 }
 
-echo "Appointment status updated";
+echo "<script>alert('Status updated');history.back();</script>";
 ?>
