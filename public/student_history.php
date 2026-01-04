@@ -20,7 +20,11 @@ $student_id = $_SESSION['student_id'];
 
 <div class="card">
     <h2>My Appointment History</h2>
-
+    <div style="text-align:right; margin-bottom:10px;">
+    <a href="logout.php">
+        <button>Logout</button>
+    </a>
+</div>
     <table width="100%" cellpadding="8" cellspacing="0" border="1">
         <tr>
             <th>Appointment ID</th>
@@ -82,3 +86,4 @@ $student_id = $_SESSION['student_id'];
 
 </body>
 </html>
+
