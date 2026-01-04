@@ -28,7 +28,9 @@ $student = mysqli_fetch_assoc(mysqli_query($conn, "
 
 <div class="card">
     <h2>Student Dashboard</h2>
-
+    <a href="logout.php" style="float:right;">
+    <button>Logout</button>
+</a>
     <p><strong>Name:</strong> <?php echo htmlspecialchars($student['name']); ?></p>
     <p><strong>Enrollment ID:</strong> <?php echo htmlspecialchars($student['student_id']); ?></p>
 
@@ -98,3 +100,4 @@ $student = mysqli_fetch_assoc(mysqli_query($conn, "
 
 </body>
 </html>
+
